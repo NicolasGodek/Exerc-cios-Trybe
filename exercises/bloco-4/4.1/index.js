@@ -6,6 +6,12 @@ let c = 9;
 
 let d = -8;
 
+let anguloA = 90;
+
+let anguloB = 60;
+
+let anguloC = 30;
+
 let adicao = a + b;
 
 let subtracao = a - b;
@@ -48,3 +54,6 @@ if (d > 0){
     console.log("d é igual a 0");
 }
 
+let triagulo = anguloA + anguloB + anguloC == 180;
+
+    console.log(triagulo)
