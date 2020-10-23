@@ -12,12 +12,18 @@ let divisao = a / b;
 
 let modulo = a % b;
 
-    console.log(adicao)
+    console.log(adicao);
 
-    console.log(subtracao)
+    console.log(subtracao);
 
-    console.log(multiplicacao)
+    console.log(multiplicacao);
 
-    console.log(divisao)
+    console.log(divisao);
 
-    console.log(modulo)
+    console.log(modulo);
+
+if (a > b) {
+    console.log("a é maior que b");
+}else {
+    console.log("b é maior que a");
+}
