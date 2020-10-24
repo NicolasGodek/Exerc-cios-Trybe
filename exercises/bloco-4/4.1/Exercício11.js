@@ -1,4 +1,4 @@
-let salario = 1000;
+let salario = 1500.10;
 
 let inss = 0;
 
