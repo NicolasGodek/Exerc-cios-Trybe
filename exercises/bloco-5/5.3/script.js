@@ -18,22 +18,26 @@ createDaysOfTheWeek();
 // Os dias 24, 25 e 31 são feriados e, além da classe day, devem conter também a classe holiday. Ex: <li class="day holiday">24</li>
 // Os dias 4, 11, 18 e 25 são Sexta-feira. Eles devem conter a classe day e a classe friday. Ex: <li class="day friday">4</li>
 
-let dezDaysList = [29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+function daysOfTheMounth() {
+    let dezDaysList = [29, 30, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
 
-for (let i in dezDaysList) {
-    let liDays = document.createElement('li');
-    liDays.innerHTML = dezDaysList[i];
-    if (liDays[i] === 24 || liDays[i] === 31) {
-        liDays.classList = 'day holiday';
-    }else if (liDays[i] === 4 || liDays[i] === 11 || liDays[i] === 18) {
-        liDays.classList = 'day friday';
-    } else if (liDays[i] === 25) {
-        liDays.classList = 'day holiday friday';
-    } else {
-        liDays.classList = 'day';
+    for (let i in dezDaysList) {
+        let liDays = document.createElement('li');
+        liDays.innerText = dezDaysList[i];
+        if (dezDaysList[i] === 24 || dezDaysList[i] === 31) {
+            liDays.classList = 'day holiday';
+        } else if (dezDaysList[i]=== 4 || dezDaysList[i] === 11 || dezDaysList[i]=== 18) {
+            liDays.classList = 'day friday';
+        } else if (dezDaysList[i] === 25) {
+            liDays.classList = 'day holiday friday';
+        } else {
+            liDays.classList = 'day';
+        }
+        document.querySelector('#days').appendChild(liDays);
     }
-    document.querySelector('#days').appendChild(liDays);
 }
+
+daysOfTheMounth();
 
 //2. Implemente uma função que receba como parâmetro a string "Feriados" e crie dinamicamente um botão com o nome "Feriados".
 // Adicione a este botão a ID "btn-holiday".
@@ -54,14 +58,13 @@ feriadosButton('Feriados');
 
 function mudarCor() {
     let clicar = document.getElementById('btn-holiday');
+    let feriados = document.getElementsByClassName('holiday');
     clicar.addEventListener('click', function() {
-        let feriados = document.getElementsByClassName('holiday');
-
         for (let i in feriados) {
-            if (feriados[i].style.backgroundColor === 'white') {
-                feriados[i].style.backgroundColor = 'rgb(238,238,238)';
+            if (feriados[i].style.backgroundColor !== 'green') {
+                feriados[i].style.backgroundColor = 'green';
             } else {
-                feriados[i].style.backgroundColor = 'white';
+                feriados[i].style.backgroundColor = 'rgb(238,238,238)';
             }
         }
     })
@@ -128,7 +131,7 @@ function mouseSai() {
 mousePassa();
 mouseSai();
 
-// 7. Implemente uma função que adiciona uma tarefa personalizada ao calendário. A função deve receber como parâmetro a string com o nome da tarefa (ex: "cozinhar") e criar dinamicamente um elemento com a tag <Div> contendo a tarefa.
+// 7. Implemente uma função que adiciona uma tarefa personalizada ao calendário. A função deve receber como parâmetro a string com o nome da tarefa (ex: "cozinhar") e criar dinamicamente um elemento com a tag <span> contendo a tarefa.
 // O elemento criado deverá ser adicionado como filho/filha da tag <div> que possui a classe "my-tasks".
 
 function tarefa(tarefa) {
@@ -147,6 +150,7 @@ tarefa('Cozinhar');
 function trocarCor(cor) {
     let pai = document.querySelector('.my-tasks');
     let elementDiv = document.createElement('div')
+    elementDiv.className = 'task'
     elementDiv.style.backgroundColor = cor;
     pai.appendChild(elementDiv);
 }
@@ -156,39 +160,41 @@ trocarCor('blue');
 // 9. Implemente uma função que adiciona um evento que ao clicar no elemento com a tag <div> referente a cor da sua tarefa, atribua a este elemento a classe task selected, ou seja, quando sua tarefa possuir a classe task selected ela estará selecionada.
 // Ao clicar novamente no elemento a sua classe deverá voltar a ser somente task, ou seja, esta tarefa está deixando de ser uma tarefa selecionada.
 
-// function tarefa() {
-//     let taskSelected = document.getElementsByClassName('task selected');
-//     let task = document.getElementsByClassName('task');
-//     task.addEventListener('click', function(event) {
-//         if (taskSelected.length === 0) {
-//           event.target.className = 'task selected';
-//         } else {
-//           event.target.className = 'task';
-//         }
-//     })
-// }
+function selecionaTarefa() {
+    let task = document.querySelector('.task');
 
-// tarefa();
+    task.addEventListener('click', function(event) {
+        let taskSelected = document.querySelector('.selected');
+        if (taskSelected === null) {
+            event.target.className = 'task selected';
+        } else {
+            event.target.className = 'task';
+        }
+    })
+}
+
+selecionaTarefa();
 
 // 10. Implemente uma função que adiciona um evento que ao clicar em um dia do mês no calendário, atribua a este dia a cor da legenda da sua tarefa selecionada.
 // Ao clicar novamente no dia com a cor da legenda, a sua cor deverá voltar à configuração inicial rgb(119,119,119).
 
-function corDia(cor){
-    let day = document.querySelectorAll('.days');
-    day.addEventListener('click', function() {
-        for (let i in day) {
-            if (day[i].style.color !== cor) {
-                day[i].style.color = cor;
+function corDia(){
+    let day = document.querySelector('#days');
+    day.addEventListener('click', function(event) {
+        let taskSelected = document.querySelector('.selected');
+        if (taskSelected !== null){
+            if (event.target.style.color === taskSelected.style.backgroundColor) {
+                event.target.style.color = 'rgb(119,119,119)';
             } else {
-                day[i].style.color = 'rgb(119,119,119)';
+                event.target.style.color = taskSelected.style.backgroundColor;
             }
         }
     })    
 }
 
-corDia("azul");
+corDia();
 
-// Vamos adicionar compromissos ao seu calendário? Implemente uma função que, ao digitar um compromisso na caixa de texto "COMPROMISSOS", adiciona o item à lista "MEUS COMPROMISSOS" ao clicar no botão "ADICIONAR".
+// Bônus. Vamos adicionar compromissos ao seu calendário? Implemente uma função que, ao digitar um compromisso na caixa de texto "COMPROMISSOS", adiciona o item à lista "MEUS COMPROMISSOS" ao clicar no botão "ADICIONAR".
 // Se nenhum caractere for inserido no campo input, a função deve retornar um alert com uma mensagem de erro ao clicar em "ADICIONAR".
 // Ao pressionar a tecla "enter" o evento também deverá ser disparado.
 // Dica - Propriedade: keyCode.
