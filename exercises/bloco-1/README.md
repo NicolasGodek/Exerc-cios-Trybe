@@ -1,0 +1,1 @@
+O módulo Unix e Bash me deu uma noção geral de como usar o shell para executar várias tarefas relacionadas ao gerenciamento de diretórios e arquivos.

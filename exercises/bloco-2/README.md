@@ -1,0 +1,1 @@
+Nesse bloco o foco vai ser ensinar sobre Git e Github
